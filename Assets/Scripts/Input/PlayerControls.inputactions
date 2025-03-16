@@ -1,0 +1,82 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "Base",
+            "id": "c3770405-48d2-4fc9-bab6-37b3b924c3a8",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Button",
+                    "id": "68ae22ee-8fc9-4466-ad54-65614b6305b8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Primary Position",
+                    "type": "PassThrough",
+                    "id": "e6077d52-7660-4b82-87b8-c2fc9dc9e0f9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9704d3d4-57ca-4ac8-9171-be0a02e8bb76",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9d8f4a9-372a-42bc-ad4f-766694d8946a",
+                    "path": "<Touchscreen>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Primary Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "New action map",
+            "id": "ece0c8dc-d532-4a95-8144-bc8555f399ec",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "254f335c-31dc-4cc2-9457-c2e80e9ac8a9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a0eea61a-11f0-4d54-a186-dc610d7907b6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
