@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(InputManager))]
 
-public class InputConsumer : MonoBehaviour
+public class TapSwipeDetection : MonoBehaviour
 {
     InputManager inputManager;
 
@@ -11,7 +11,7 @@ public class InputConsumer : MonoBehaviour
     float dirThreshold = 0.9f;
 
     float swipeTimeout = 0.5f;
-    float tapTimeout = 0.1f;
+    float tapTimeout = 0.2f;
 
     Vector2 startPos;
     Vector2 endPos;
@@ -65,7 +65,35 @@ public class InputConsumer : MonoBehaviour
 
     void CheckSwipe()
     {
+        float distance = Vector2.Distance(startPos, endPos);
+        if (distance < distThreshold) //not a valid swipe
+        {
+            return;
+        }
 
+        Vector2 dir = (endPos - startPos).normalized;
+        float checkUp = Vector2.Dot(Vector2.up, dir);
+        float checkLeft = Vector2.Dot(Vector2.left, dir);
+
+        if (checkUp >= dirThreshold)
+        {
+            Debug.Log("Swipe Up");
+            return;
+        }
+       if (checkUp <= -dirThreshold)
+        {
+            Debug. Log("Swipe Down");
+        }
+       if (checkLeft >= dirThreshold)
+        {
+            Debug.Log("Swipe Left");
+            return;
+        }
+        if (checkLeft <= -dirThreshold)
+        {
+            Debug.Log("Swipe Right");
+            return;
+        }
     }
 
     // Update is called once per frame
