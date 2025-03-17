@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ParallaxScript : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class ParallaxScript : MonoBehaviour
     private float bgWidth, bgTotalWidth;
     private GameObject bgCloneObj;
     private bool isObjCloned = false;
+
+    public ScoreManager scoreManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,7 +42,21 @@ public class ParallaxScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float newPositionX = Time.deltaTime * parallaxSpeed;
+        float adjustedParallaxSpeed = parallaxSpeed; //For adjusting as it relates to power-up
+
+        // If power-up is active, increase the parallax speed
+        if (scoreManager != null && scoreManager.isPowerUpActive)
+        {
+            adjustedParallaxSpeed = parallaxSpeed * scoreManager.scoreMultiplier;
+        }
+
+        // If power-up is active, increase the parallax speed
+        if (scoreManager != null && scoreManager.isPowerUpActive)
+        {
+            adjustedParallaxSpeed = parallaxSpeed * scoreManager.scoreMultiplier;
+        }
+
+        float newPositionX = Time.deltaTime * adjustedParallaxSpeed;
         transform.position = transform.position + new Vector3(newPositionX, 0, 0);
 
         bgCloneObj.transform.position = bgCloneObj.transform.position + new Vector3(newPositionX, 0, 0);
