@@ -5,13 +5,14 @@ using UnityEngine;
 public class TapSwipeDetection : MonoBehaviour
 {
     InputManager inputManager;
+    PlayerController playerController;
 
     //Variables to control Tapping and Swiping
-    float distThreshold = 0.8f;
-    float dirThreshold = 0.9f;
+    float distThreshold = 0.5f; //Previously 0.8f
+    float dirThreshold = 0.9f; //Previously 0.9f
 
-    float swipeTimeout = 0.5f;
-    float tapTimeout = 0.2f;
+    float swipeTimeout = 0.5f; //The lower the timeout, the less time there is for a swipe to occur.
+    float tapTimeout = 0.2f; //Same as above but for Tap.
 
     Vector2 startPos;
     Vector2 endPos;
@@ -25,6 +26,12 @@ public class TapSwipeDetection : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         inputManager.OnTouchBegin += TouchStarted;
         inputManager.OnTouchEnd += TouchEnded;
+
+        playerController = FindFirstObjectByType<PlayerController>();
+        if (playerController == null)
+        {
+            Debug.LogError("PlayerController not found in the scene");
+        }
     }
 
     void TouchStarted()
@@ -78,11 +85,13 @@ public class TapSwipeDetection : MonoBehaviour
         if (checkUp >= dirThreshold)
         {
             Debug.Log("Swipe Up");
+            playerController.HandleJump();
             return;
         }
        if (checkUp <= -dirThreshold)
         {
             Debug. Log("Swipe Down");
+            playerController.FastDescend();
         }
        if (checkLeft >= dirThreshold)
         {

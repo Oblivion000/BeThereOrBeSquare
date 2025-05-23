@@ -7,16 +7,20 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Assuming the player has a "Player" tag
-        if (other.CompareTag("Player"))
-        {
-            //ActivatePowerUp(other.gameObject);
-            Destroy(gameObject); // Destroy the power-up after it’s collected
-        }
 
         if (other.CompareTag("DespawnZone"))
         {
             Destroy(gameObject); // Destroy the power-up when the it collides with the despawn zone.
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Assuming the player has a "Player" tag
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //ActivatePowerUp(other.gameObject);
+            Destroy(gameObject); // Destroy the power-up after it’s collected
         }
     }
 

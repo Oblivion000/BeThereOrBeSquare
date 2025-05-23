@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;       // UI Text for current score
     public TextMeshProUGUI highScoreText;   // UI Text for high score
+    public TextMeshProUGUI gameOverText;
 
     private float score = 0f;
     private int highScore = 0;
@@ -26,6 +27,7 @@ public class ScoreManager : MonoBehaviour
         // Increase score over time
         score += Time.deltaTime * 10f * scoreMultiplier;
         scoreText.text = "Score: " + Mathf.FloorToInt(score).ToString();
+        gameOverText.text= "Score: " + Mathf.FloorToInt(score).ToString();
 
         // Update high score if beaten
         if (score > highScore)
