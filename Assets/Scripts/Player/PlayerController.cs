@@ -19,6 +19,14 @@ public class PlayerController : MonoBehaviour
     public GameOverScreen GameOverScreen;
     public SoundManager SoundManager;
 
+
+    //For Death Animation
+    public GameObject deathAnimationPrefab;
+    public int gridSize = 3; // Number of cubes in each direction
+    public float cubeSpacing = 0.1f; // Spacing between cubes
+    public float cubeSize = 0.1f; // Size of each cube
+    public float explosionForce = 200f; // Force applied to cubes on explosion
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -81,6 +89,7 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             //To be refactored into taking damage and then the gameover screen after death
+            //OnPlayerDeath();
             GameOverScreen.ShowGameOverPanel();
             SoundManager.StopMusic();
 
@@ -94,5 +103,32 @@ public class PlayerController : MonoBehaviour
        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -fastDropSpeed);
     }
 
+    //On Death animation Test
+    public void OnPlayerDeath()
+    {
+        Vector3 origin = transform.position;
+        Vector2 size = GetComponent<SpriteRenderer>().bounds.size;
+
+        //this is to spawn a grid of small cubes
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                for (int z = 0; z < gridSize; z++)
+                {
+                    Vector3 offset = origin + new Vector3(
+                        (x - gridSize / 2) * (size.x + cubeSpacing),
+                        (y - gridSize / 2) * (size.y + cubeSpacing)
+                        );
+
+                    GameObject cube = Instantiate(deathAnimationPrefab, origin + offset, Quaternion.identity);
+                    Rigidbody2D rbCube = cube.GetComponent<Rigidbody2D>();
+
+                    Vector2 explosionDirection = (cube.transform.position - origin).normalized;
+                    rbCube.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
+                }
+            }
+        }
+    }
 }
 

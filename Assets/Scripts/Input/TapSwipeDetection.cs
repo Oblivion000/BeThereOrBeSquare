@@ -8,10 +8,10 @@ public class TapSwipeDetection : MonoBehaviour
     PlayerController playerController;
 
     //Variables to control Tapping and Swiping
-    float distThreshold = 0.5f; //Previously 0.8f
+    float distThreshold = 0.2f; //Previously 0.8f
     float dirThreshold = 0.9f; //Previously 0.9f
 
-    float swipeTimeout = 0.5f; //The lower the timeout, the less time there is for a swipe to occur.
+    float swipeTimeout = 1.0f; //The lower the timeout, the less time there is for a swipe to occur. //was 0.5
     float tapTimeout = 0.2f; //Same as above but for Tap.
 
     Vector2 startPos;

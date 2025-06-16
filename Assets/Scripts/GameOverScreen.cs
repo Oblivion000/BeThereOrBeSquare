@@ -13,7 +13,7 @@ public class GameOverScreen : MonoBehaviour
     {
         if (GameOverPanel == null)
         {
-            Debug.LogError("Checkpoint Panel is not assiged in the Inspector!");
+            Debug.LogError("GameOver Panel is not assiged in the Inspector!");
         }
         HideGameOverPanel();
     }

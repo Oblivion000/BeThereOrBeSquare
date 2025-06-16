@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync("MainGame"); //Replace SampleScene with the name of the first game scene 
     }
-    public void Settings() //method to start the first game scene
+    public void Settings() //method to start the settings scene
     {
         SceneManager.LoadSceneAsync("SettingsMenu"); //Replace SampleScene with the name of the first game scene 
     }
