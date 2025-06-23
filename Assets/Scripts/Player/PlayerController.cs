@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         defaultGravity = rb.gravityScale;
         //hoverEffect.SetActive(false);
+
+        ApplyEquippedSkin();
     }
 
     private void Update()
@@ -128,6 +130,15 @@ public class PlayerController : MonoBehaviour
                     rbCube.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
                 }
             }
+        }
+    }
+
+    void ApplyEquippedSkin()
+    {
+        var skin = SkinManager.Instance.equippedSkin;
+        if (skin != null)
+        {
+            GetComponent<Animator>().runtimeAnimatorController = skin.animatorController;
         }
     }
 }

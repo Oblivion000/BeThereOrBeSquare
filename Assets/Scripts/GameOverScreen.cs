@@ -7,6 +7,7 @@ public class GameOverScreen : MonoBehaviour
 
     [SerializeField] private GameObject GameOverPanel; // Assign in the Inspector
     public SoundManager SoundManager;
+    public Text earnedCurrencyText; // UI Text to display earned currency
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +31,19 @@ public class GameOverScreen : MonoBehaviour
         gameObject.SetActive(true);
         Debug.Log("GameOverScreen being called.");
         SoundManager.StopMusic();
+
+        //Currency awarded here
+        ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
+        if (scoreManager != null)
+        {
+            int score = scoreManager.GetScore();
+            int earned = CalculateCurrency(score);
+            CurrencyManager.Instance.AddCurrency(earned);
+            earnedCurrencyText.text = "+" + earned.ToString() + " Coins";
+
+            Debug.Log($"Currency awarded: {earned}. Total currency: {CurrencyManager.Instance.GetCurrency()}");
+        }
+
     }
 
     public void ChangeScene(string SceneName)
@@ -47,5 +61,11 @@ public class GameOverScreen : MonoBehaviour
             SoundManager.PlayMusic();
             
         }
+    }
+
+    private int CalculateCurrency(int score)
+    {
+        // Example calculation: 1 currency per 100 points
+        return Mathf.FloorToInt(score * 0.1f);
     }
 }

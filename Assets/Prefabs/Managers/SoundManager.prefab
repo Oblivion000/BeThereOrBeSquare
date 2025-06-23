@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 0}
-  backgroundMusic: {fileID: 8300000, guid: 61b6a4fe3a9f43c41b5f6bd94fd86abe, type: 3}
+  sfxSource: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 541934c554817a641a4529b21f04414c, type: 3}

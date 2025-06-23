@@ -55,5 +55,10 @@ public class ScoreManager : MonoBehaviour
         powerUpStacks = 0;
         scoreMultiplier = 1f; // Reset multiplier
     }
+
+    public int GetScore()
+    {
+        return Mathf.FloorToInt(score);
+    }
 }
 
