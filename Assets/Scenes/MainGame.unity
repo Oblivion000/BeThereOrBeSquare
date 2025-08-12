@@ -4101,6 +4101,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2063668860}
     - target: {fileID: 6500525053337511762, guid: 9709dc68326efc74b856fd3aa78a930f, type: 3}
+      propertyPath: SoundManager
+      value: 
+      objectReference: {fileID: 5198779517144234241, guid: 5dd7eec352b47e24ea281ad77fa266eb, type: 3}
+    - target: {fileID: 6500525053337511762, guid: 9709dc68326efc74b856fd3aa78a930f, type: 3}
       propertyPath: GameOverScreen
       value: 
       objectReference: {fileID: 378518427}
