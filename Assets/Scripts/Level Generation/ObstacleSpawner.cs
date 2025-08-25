@@ -1,38 +1,57 @@
 using UnityEngine;
+using System.Collections;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    public ObjectPool objectPool;  // Reference to the object pool
+    [Header("Pools")]
+    public ObjectPool obstaclePool;
+    public ObjectPool pickupPool;
+
+    [Header("Spawn Settings")]
     public Transform spawnPoint;
     public float minSpawnDelay = 1.0f;
     public float maxSpawnDelay = 2.5f;
-    public float obstacleSpeed = 5f;
-    //public float baseSpawnRate = 1.0f;
+
+    [Header("Obstacle Settings")]
+    public float obstacleBaseSpeed = 5f;
+
+    [Header("Pickup Settings")]
+    public float pickupBaseSpeed = 5f;
+    [Range(0f, 1f)] public float pickupChance = 0.2f;
 
     private void Start()
     {
-        //spawnRate = baseSpawnRate;
-        StartCoroutine(SpawnObstacles());
+        StartCoroutine(SpawnRoutine());
     }
 
-    private System.Collections.IEnumerator SpawnObstacles()
+    private IEnumerator SpawnRoutine()
     {
         while (true)
         {
-            float delay = Random.Range(minSpawnDelay, maxSpawnDelay);
+            // Random delay scaled by current speed multiplier
+            float delay = Random.Range(minSpawnDelay, maxSpawnDelay) / SpeedManager.Instance.GetMultiplier();
             yield return new WaitForSeconds(delay);
 
-            GameObject obstacle = objectPool.GetObstacle(spawnPoint.position);
+            bool spawnPickup = Random.value < pickupChance;
 
-            // Give it movement
-            Rigidbody2D rb = obstacle.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            GameObject obj;
+            if (spawnPickup)
             {
-                rb.linearVelocity = new Vector2(-obstacleSpeed, 0);
+                obj = pickupPool.GetObstacle(spawnPoint.position);
+                ObstacleMovement move = obj.GetComponent<ObstacleMovement>();
+                if (move != null) move.SetSpeed(pickupBaseSpeed);
+            }
+            else
+            {
+                obj = obstaclePool.GetObstacle(spawnPoint.position);
+                ObstacleMovement move = obj.GetComponent<ObstacleMovement>();
+                if (move != null) move.SetSpeed(obstacleBaseSpeed);
             }
         }
     }
 }
+
+
 
 
 

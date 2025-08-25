@@ -13,6 +13,12 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < poolSize; i++)
         {
             GameObject obj = Instantiate(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)], transform);
+
+            PoolReference refComp = obj.AddComponent<PoolReference>();
+            if (refComp == null)
+                refComp = obj.AddComponent<PoolReference>();
+            refComp.pool = this; // Assign this pool to the reference component
+
             obj.SetActive(false);
             obstaclePool.Enqueue(obj); // Add to pool
         }

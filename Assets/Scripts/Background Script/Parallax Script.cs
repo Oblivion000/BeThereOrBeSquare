@@ -42,34 +42,20 @@ public class ParallaxScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float adjustedParallaxSpeed = parallaxSpeed; //For adjusting as it relates to power-up
+        // Use global multiplier from SpeedManager
+        float adjustedParallaxSpeed = parallaxSpeed * SpeedManager.Instance.GetMultiplier();
 
-        // If power-up is active, increase the parallax speed
-        if (scoreManager != null && scoreManager.isPowerUpActive)
-        {
-            adjustedParallaxSpeed = parallaxSpeed * scoreManager.scoreMultiplier;
-        }
+        // Move both background and its clone
+        Vector3 movement = new Vector3(Time.deltaTime * adjustedParallaxSpeed, 0, 0);
+        transform.position += movement;
+        bgCloneObj.transform.position += movement;
 
-        // If power-up is active, increase the parallax speed
-        if (scoreManager != null && scoreManager.isPowerUpActive)
-        {
-            adjustedParallaxSpeed = parallaxSpeed * scoreManager.scoreMultiplier;
-        }
-
-        float newPositionX = Time.deltaTime * adjustedParallaxSpeed;
-        transform.position = transform.position + new Vector3(newPositionX, 0, 0);
-
-        bgCloneObj.transform.position = bgCloneObj.transform.position + new Vector3(newPositionX, 0, 0);
-
-        if (gameObject.transform.position.x < -bgTotalWidth / 2)
-        {
+        // Recycle when out of view
+        if (transform.position.x < -bgTotalWidth / 2)
             ResetPosition(gameObject);
-        }
 
         if (bgCloneObj.transform.position.x < -bgTotalWidth / 2)
-        {
             ResetPosition(bgCloneObj);
-        }
     }
 
     void ResetPosition(GameObject obj)

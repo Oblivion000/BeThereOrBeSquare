@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using TMPro;
+using System.Collections;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -38,23 +39,45 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    // Call this when power-up is collected
-    public void ActivatePowerUp(int stackLevel)
+    public void ActivateSpeedBoost(float boostMultiplier, float duration)
     {
+        StartCoroutine(SpeedBoostRoutine(boostMultiplier, duration));
+    }
+
+    private IEnumerator SpeedBoostRoutine(float boostMultiplier, float duration)
+    {
+        // Activate boost
         isPowerUpActive = true;
-        powerUpStacks = Mathf.Clamp(stackLevel, 1, 3); // Max 3 stacks
+        scoreMultiplier = boostMultiplier;
 
-        // Increase score multiplier based on power-up stacks
-        scoreMultiplier = 1f + (powerUpStacks * 0.5f); // 1.5x, 2x, 2.5x
-    }
+        // SpeedManager also reacts
+        SpeedManager.Instance.SetMultiplier(boostMultiplier);
 
-    // Call this when power-up ends
-    public void DeactivatePowerUp()
-    {
+        yield return new WaitForSeconds(duration);
+
+        // Reset
         isPowerUpActive = false;
-        powerUpStacks = 0;
-        scoreMultiplier = 1f; // Reset multiplier
+        scoreMultiplier = 1f;
+        SpeedManager.Instance.SetMultiplier(1f);
     }
+
+    // Call this when power-up is collected
+    //public void ActivatePowerUp(int stackLevel)
+    //{
+    //    isPowerUpActive = true;
+    //    powerUpStacks = Mathf.Clamp(stackLevel, 1, 3); // Max 3 stacks
+
+    //    // Increase score multiplier based on power-up stacks
+    //    scoreMultiplier = 1f + (powerUpStacks * 0.5f); // 1.5x, 2x, 2.5x
+    //}
+
+    //// Call this when power-up ends
+    //public void DeactivatePowerUp()
+    //{
+    //    isPowerUpActive = false;
+    //    powerUpStacks = 0;
+    //    scoreMultiplier = 1f; // Reset multiplier
+    //}
 
     public int GetScore()
     {
