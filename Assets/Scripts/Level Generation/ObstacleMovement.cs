@@ -2,19 +2,24 @@ using UnityEngine;
 
 public class ObstacleMovement : MonoBehaviour
 {
-    private float speed;
+    private float baseSpeed = 0f; // Base speed without multiplier
 
+    // Set the base speed (the "normal" speed for this obstacle)
     public void SetSpeed(float newSpeed)
     {
-        speed = newSpeed;
+        baseSpeed = newSpeed;
     }
 
     private void Update()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime;
+        // Get current speed multiplier from SpeedManager
+        float multiplier = SpeedManager.Instance != null ? SpeedManager.Instance.GetMultiplier() : 1f;
 
-        // If off-screen, return to pool
-        if (transform.position.x < -20f) // adjust boundary
+        // Move left using base speed scaled by multiplier
+        transform.position += Vector3.left * baseSpeed * multiplier * Time.deltaTime;
+
+        // Off-screen pooling
+        if (transform.position.x < -20f) // adjust boundary as needed
         {
             var poolRef = GetComponent<PoolReference>();
             if (poolRef != null && poolRef.pool != null)
@@ -23,12 +28,14 @@ public class ObstacleMovement : MonoBehaviour
             }
             else
             {
-                // fallback if pool wasn't set
                 gameObject.SetActive(false);
             }
         }
     }
 }
+
+
+
 
 
 
