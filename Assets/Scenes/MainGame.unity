@@ -222,6 +222,53 @@ MonoBehaviour:
   cam: {fileID: 0}
   parallaxSpeed: -0.2
   scoreManager: {fileID: 0}
+--- !u!1 &23666763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23666765}
+  - component: {fileID: 23666764}
+  m_Layer: 0
+  m_Name: Powerup Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &23666764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23666763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0b6edfd325d054286f4b57ef9459a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 8813294825087845637, guid: ea7bc9becf623aa438030742909c76f5, type: 3}
+  poolSize: 5
+--- !u!4 &23666765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23666763}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.45, y: -0.08, z: -0.049384885}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &146422501
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +1029,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &711843675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 711843676}
+  - component: {fileID: 711843677}
+  m_Layer: 0
+  m_Name: SpeedManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &711843676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711843675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1151.7415, y: 795.0185, z: -6.694805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &711843677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711843675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c31d278514faf439163aa528658efb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMultiplier: 1
 --- !u!1 &717291024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,6 +1829,55 @@ MonoBehaviour:
   cam: {fileID: 0}
   parallaxSpeed: 1
   scoreManager: {fileID: 0}
+--- !u!1 &1172876099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1172876100}
+  - component: {fileID: 1172876101}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1172876100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172876099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1151.7415, y: 795.0185, z: -6.694805}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1172876101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172876099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 152abd7e0ca651b459c41836b2c13ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 1987166572}
+  highScoreText: {fileID: 2063668860}
+  gameOverText: {fileID: 1368975081}
+  scoreMultiplier: 1
+  isPowerUpActive: 0
 --- !u!1 &1173526209
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4747e1719cbf7c941b84056fd4bc07f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 519420028}
   parallaxSpeed: -0.1
   scoreManager: {fileID: 0}
 --- !u!1 &1485395775
@@ -2777,11 +2918,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fff66725f003b049b1cfcad33cb30fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPool: {fileID: 1194661070}
+  obstaclePool: {fileID: 1194661070}
+  pickupPool: {fileID: 23666764}
   spawnPoint: {fileID: 1524684553}
   minSpawnDelay: 1
   maxSpawnDelay: 3
-  obstacleSpeed: 5
+  obstacleBaseSpeed: 5
+  pickupBaseSpeed: 5
+  pickupChance: 0.2
 --- !u!1 &1539073565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,7 +2942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1539073566
 Transform:
   m_ObjectHideFlags: 0
@@ -2826,7 +2970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2313aa2f3609fa4899409423f4252d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpPrefab: {fileID: 5590637844741118243, guid: daeb5f88623a9c443844684b3ca9a21f, type: 3}
+  powerUpPrefab: {fileID: 8813294825087845637, guid: ea7bc9becf623aa438030742909c76f5, type: 3}
   spawnArea: {fileID: 1539073566}
   powerUpDuration: 5
   powerUpSpawnChance: 0.2
@@ -4058,6 +4202,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5288235449577429672, guid: 9709dc68326efc74b856fd3aa78a930f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288235449577429672, guid: 9709dc68326efc74b856fd3aa78a930f, type: 3}
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1987166572}
@@ -4196,7 +4344,10 @@ SceneRoots:
   - {fileID: 938353434}
   - {fileID: 1524684553}
   - {fileID: 1194661069}
+  - {fileID: 23666765}
   - {fileID: 1545475209}
   - {fileID: 1539073566}
   - {fileID: 1653421322}
   - {fileID: 8607154475602515387}
+  - {fileID: 1172876100}
+  - {fileID: 711843676}
