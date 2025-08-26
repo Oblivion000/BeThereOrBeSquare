@@ -4845,7 +4845,6 @@ GameObject:
   - component: {fileID: 5953139240828859319}
   - component: {fileID: 828172200233421648}
   - component: {fileID: 6017296416411844025}
-  - component: {fileID: 5288235449577429672}
   - component: {fileID: 6500525053337511762}
   m_Layer: 0
   m_Name: Player
@@ -4998,23 +4997,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5288235449577429672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2728661755194772665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 152abd7e0ca651b459c41836b2c13ffa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  highScoreText: {fileID: 0}
-  gameOverText: {fileID: 0}
-  scoreMultiplier: 1
-  isPowerUpActive: 0
 --- !u!114 &6500525053337511762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5032,8 +5014,8 @@ MonoBehaviour:
   hoverGravityScale: 0.5
   fastDropSpeed: 20
   GameOverScreen: {fileID: 0}
-  SoundManager: {fileID: 0}
-  deathAnimationPrefab: {fileID: 0}
+  SoundManager: {fileID: 5198779517144234241, guid: 5dd7eec352b47e24ea281ad77fa266eb, type: 3}
+  deathAnimationPrefab: {fileID: 2516439848946110933, guid: afe79019078f43a459da7214505a0b6d, type: 3}
   gridSize: 3
   cubeSpacing: 0.1
   cubeSize: 0.1

@@ -21,7 +21,7 @@ public class CurrencyDiplayUI : MonoBehaviour
         if (currencyText != null && CurrencyManager.Instance != null)
         {
             int totalCurrency = CurrencyManager.Instance.GetCurrency();
-            currencyText.text = "Coins: " + totalCurrency.ToString();
+            currencyText.text = "Gems: " + totalCurrency.ToString();
         }
     }
 }

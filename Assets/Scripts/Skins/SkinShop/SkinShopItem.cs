@@ -6,6 +6,7 @@ public class SkinShopItem : MonoBehaviour
 {
     public Image previewImage;
     public TextMeshProUGUI nameText;
+    public TextMeshProUGUI previewText;
     public TextMeshProUGUI costText;
     public Button buyEquipButton;
 
@@ -17,6 +18,8 @@ public class SkinShopItem : MonoBehaviour
         skinData = data;
         shopManager = manager;
 
+        Debug.Log($"Setting up skin: {skinData.skinName}, cost: {skinData.cost}");
+
         previewImage.sprite = skinData.previewIcon;
         nameText.text = skinData.skinName;
 
@@ -27,11 +30,13 @@ public class SkinShopItem : MonoBehaviour
         }
         else
         {
-            costText.text = skinData.cost + " Coins";
+            costText.text = skinData.cost + " Gems";
             buyEquipButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy";
         }
 
         buyEquipButton.onClick.AddListener(() => shopManager.OnSkinButtonClicked(skinData));
     }
+
+
 }
 
