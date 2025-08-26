@@ -1,40 +1,45 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class SpeedManager : MonoBehaviour
 {
-    public static SpeedManager Instance;
+    public static SpeedManager Instance { get; private set; }
 
-    [Header("Base Settings")]
-    public float speedMultiplier = 1f;
+    private float baseMultiplier = 1f;
+    private float currentMultiplier = 1f;
 
-    void Awake()
+    private List<Coroutine> activeBoosts = new List<Coroutine>();
+
+    private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject); // avoid duplicates
-    }
-
-    public void ActivateBoost(float multiplier, float duration)
-    {
-        StopAllCoroutines();
-        StartCoroutine(BoostRoutine(multiplier, duration));
-    }
-
-    private IEnumerator BoostRoutine(float multiplier, float duration)
-    {
-        speedMultiplier = multiplier;
-        yield return new WaitForSeconds(duration);
-        speedMultiplier = 1f;
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     public float GetMultiplier()
     {
-        return speedMultiplier;
+        return currentMultiplier;
     }
 
-    public void SetMultiplier(float value) => speedMultiplier = value; // optional, direct setter
+    public void ActivateBoost(float boostMultiplier, float duration)
+    {
+        // Apply the new boost
+        currentMultiplier *= boostMultiplier;
+
+        // Start a coroutine to remove it later
+        Coroutine c = StartCoroutine(RemoveBoostAfterTime(boostMultiplier, duration));
+        activeBoosts.Add(c);
+    }
+
+    private IEnumerator RemoveBoostAfterTime(float boostMultiplier, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        // Remove the boost effect
+        currentMultiplier /= boostMultiplier;
+
+        // Remove coroutine from active list
+        activeBoosts.RemoveAll(x => x == null);
+    }
 }
-
-

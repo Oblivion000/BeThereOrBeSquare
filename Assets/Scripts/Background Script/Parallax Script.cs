@@ -42,11 +42,17 @@ public class ParallaxScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Use global multiplier from SpeedManager
-        float adjustedParallaxSpeed = parallaxSpeed * SpeedManager.Instance.GetMultiplier();
+        float multiplier = 1f;
 
-        // Move both background and its clone
+        if (SpeedManager.Instance != null)
+        {
+            multiplier = SpeedManager.Instance.GetMultiplier();
+        }
+
+        // Apply parallax movement
+        float adjustedParallaxSpeed = parallaxSpeed * multiplier;
         Vector3 movement = new Vector3(Time.deltaTime * adjustedParallaxSpeed, 0, 0);
+
         transform.position += movement;
         bgCloneObj.transform.position += movement;
 

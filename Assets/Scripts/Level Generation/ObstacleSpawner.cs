@@ -28,8 +28,10 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (true)
         {
+            float speedMultiplier = SpeedManager.Instance != null ? SpeedManager.Instance.GetMultiplier() : 1f;
+
             // Random delay scaled by current speed multiplier
-            float delay = Random.Range(minSpawnDelay, maxSpawnDelay) / SpeedManager.Instance.GetMultiplier();
+            float delay = Random.Range(minSpawnDelay, maxSpawnDelay) / speedMultiplier;
             yield return new WaitForSeconds(delay);
 
             bool spawnPickup = Random.value < pickupChance;
@@ -39,17 +41,18 @@ public class ObstacleSpawner : MonoBehaviour
             {
                 obj = pickupPool.GetObstacle(spawnPoint.position);
                 ObstacleMovement move = obj.GetComponent<ObstacleMovement>();
-                if (move != null) move.SetSpeed(pickupBaseSpeed);
+                if (move != null) move.SetSpeed(pickupBaseSpeed * speedMultiplier);
             }
             else
             {
                 obj = obstaclePool.GetObstacle(spawnPoint.position);
                 ObstacleMovement move = obj.GetComponent<ObstacleMovement>();
-                if (move != null) move.SetSpeed(obstacleBaseSpeed);
+                if (move != null) move.SetSpeed(obstacleBaseSpeed * speedMultiplier);
             }
         }
     }
 }
+
 
 
 

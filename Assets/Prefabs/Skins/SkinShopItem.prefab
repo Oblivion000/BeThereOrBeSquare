@@ -422,6 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previewImage: {fileID: 3106262935859058941}
   nameText: {fileID: 665276611227883428}
+  previewText: {fileID: 3270946310077019062}
   costText: {fileID: 8942809626534522792}
   buyEquipButton: {fileID: 6642610580046007351}
 --- !u!1 &4631675044818967168

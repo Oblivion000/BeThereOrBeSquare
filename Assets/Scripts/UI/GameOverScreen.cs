@@ -1,13 +1,14 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameOverScreen : MonoBehaviour
 {
 
     [SerializeField] private GameObject GameOverPanel; // Assign in the Inspector
     public SoundManager SoundManager;
-    public Text earnedCurrencyText; // UI Text to display earned currency
+    public TextMeshProUGUI earnedCurrencyText; // UI Text to display earned currency
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,25 +26,54 @@ public class GameOverScreen : MonoBehaviour
         
     }
 
+    //public void ShowGameOverPanel()
+    //{
+    //    Time.timeScale = 0;
+    //    gameObject.SetActive(true);
+    //    Debug.Log("GameOverScreen being called.");
+    //    SoundManager.StopMusic();
+
+    //    //Currency awarded here
+    //    ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
+    //    if (scoreManager != null)
+    //    {
+    //        int score = scoreManager.GetScore();
+    //        int earned = CalculateCurrency(score);
+    //        CurrencyManager.Instance.AddCurrency(earned);
+    //        earnedCurrencyText.text = "+" + earned.ToString() + " Coins";
+
+    //        Debug.Log($"Currency awarded: {earned}. Total currency: {CurrencyManager.Instance.GetCurrency()}");
+    //    }
+
+    //}
+
     public void ShowGameOverPanel()
     {
-        Time.timeScale = 0;
-        gameObject.SetActive(true);
         Debug.Log("GameOverScreen being called.");
-        SoundManager.StopMusic();
 
-        //Currency awarded here
+        //Handle rewards BEFORE freezing time
         ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
         if (scoreManager != null)
         {
             int score = scoreManager.GetScore();
             int earned = CalculateCurrency(score);
-            CurrencyManager.Instance.AddCurrency(earned);
-            earnedCurrencyText.text = "+" + earned.ToString() + " Coins";
 
-            Debug.Log($"Currency awarded: {earned}. Total currency: {CurrencyManager.Instance.GetCurrency()}");
+            if (CurrencyManager.Instance != null)
+            {
+                CurrencyManager.Instance.AddCurrency(earned);
+            }
+
+            if (earnedCurrencyText != null)
+            {
+                earnedCurrencyText.text = "+" + earned.ToString() + " Gems";
+            }
         }
 
+        //Freeze time AFTER all updates
+        Time.timeScale = 0f;
+
+        //Show the panel
+        gameObject.SetActive(true);
     }
 
     public void ChangeScene(string SceneName)
@@ -65,7 +95,7 @@ public class GameOverScreen : MonoBehaviour
 
     private int CalculateCurrency(int score)
     {
-        // Example calculation: 1 currency per 100 points
-        return Mathf.FloorToInt(score * 0.1f);
+        return Mathf.Max(1, Mathf.FloorToInt(score * 0.1f));
     }
+
 }
