@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class SkinShopManager : MonoBehaviour
 {
-    public List<SkinData> availableSkins;
+    public List<SkinData> availableSkins = new List<SkinData>();
     public GameObject skinItemPrefab;
     public Transform shopItemContainer;
 
@@ -18,6 +18,7 @@ public class SkinShopManager : MonoBehaviour
         {
             GameObject item = Instantiate(skinItemPrefab, shopItemContainer);
             item.GetComponent<SkinShopItem>().Setup(skin, this);
+            Debug.Log($"Added skin to shop: {skin.skinName} with cost {skin.cost}");
         }
     }
 
