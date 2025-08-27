@@ -10,7 +10,7 @@ public class SkinManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this) Destroy(gameObject);
+        if (Instance != null) Destroy(gameObject);
         else Instance = this;
 
         DontDestroyOnLoad(gameObject);
