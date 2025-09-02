@@ -830,6 +830,7 @@ RectTransform:
   - {fileID: 2141889563}
   - {fileID: 533921512}
   - {fileID: 1567727314}
+  - {fileID: 1752665584}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1481,6 +1482,41 @@ RectTransform:
   m_AnchoredPosition: {x: 1088, y: 476}
   m_SizeDelta: {x: 58.5889, y: 60.4712}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1752665583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1752665584}
+  m_Layer: 5
+  m_Name: floatingTextSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1752665584
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752665583}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 613946277}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -266, y: -57}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1892015671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1867,6 +1903,14 @@ PrefabInstance:
       propertyPath: shopItemContainer
       value: 
       objectReference: {fileID: 84627940}
+    - target: {fileID: 1810012293871730753, guid: 3a5404ca3fc7ad24387a7b4bc39971ad, type: 3}
+      propertyPath: floatingTextPrefab
+      value: 
+      objectReference: {fileID: 4448559919830681145, guid: 416cb064f2f11fa4ab8bf1c213648816, type: 3}
+    - target: {fileID: 1810012293871730753, guid: 3a5404ca3fc7ad24387a7b4bc39971ad, type: 3}
+      propertyPath: floatingTextSpawnPoint
+      value: 
+      objectReference: {fileID: 1752665584}
     - target: {fileID: 7899315841715496061, guid: 3a5404ca3fc7ad24387a7b4bc39971ad, type: 3}
       propertyPath: m_Name
       value: SkinShopManager

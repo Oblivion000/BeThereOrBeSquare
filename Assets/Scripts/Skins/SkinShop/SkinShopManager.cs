@@ -7,6 +7,9 @@ public class SkinShopManager : MonoBehaviour
     public GameObject skinItemPrefab;
     public Transform shopItemContainer;
 
+    public GameObject floatingTextPrefab;
+    public Transform floatingTextSpawnPoint;
+
     void Start()
     {
         PopulateShop();
@@ -33,11 +36,18 @@ public class SkinShopManager : MonoBehaviour
             else
             {
                 Debug.Log("Not enough coins!");
+                ShowFloatingText("Not enough gems!");
                 return;
             }
         }
 
         SkinManager.Instance.EquipSkin(skin);
+    }
+
+    void ShowFloatingText(string message)
+    {
+        GameObject textObj = Instantiate(floatingTextPrefab, floatingTextSpawnPoint);
+        textObj.GetComponent<FloatingText>().Show(message);
     }
 }
 
