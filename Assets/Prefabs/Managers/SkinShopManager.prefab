@@ -48,3 +48,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba53ff99d778fe5408697dd8fd1c14e4, type: 2}
   skinItemPrefab: {fileID: 4277592125255078975, guid: 2b2f3b008c3ca5b4f9294614f31406e5, type: 3}
   shopItemContainer: {fileID: 0}
+  floatingTextPrefab: {fileID: 4448559919830681145, guid: 3aec097a10905e24596df72aea7a9de8, type: 3}
+  floatingTextSpawnPoint: {fileID: 0}

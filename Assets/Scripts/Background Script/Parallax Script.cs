@@ -1,74 +1,72 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class ParallaxScript : MonoBehaviour
+public class ParallaxUI : MonoBehaviour
 {
-
-    public GameObject cam;
-    public float parallaxSpeed = -0.5f;
+    public RectTransform canvas; // Assign your Canvas here
+    public float parallaxSpeed = -50f; // UI units (pixels) per second
     private float bgWidth, bgTotalWidth;
     private GameObject bgCloneObj;
     private bool isObjCloned = false;
 
-    public ScoreManager scoreManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        bgWidth = GetComponent<SpriteRenderer>().bounds.extents.x * 2;
-        //bgWidth = GetComponent<SpriteRenderer>().bounds.size.x; This is the previous script with the gap
+        RectTransform rect = GetComponent<RectTransform>();
+
+        // Width of the UI element
+        bgWidth = rect.rect.width;
         bgTotalWidth = bgWidth * 2;
 
-        if (isObjCloned == false)
+        if (!isObjCloned)
         {
-            float bgClonePositionX = transform.position.x + bgWidth;
+            // Clone background to the right
+            Vector3 bgClonePosition = new Vector3(
+                transform.localPosition.x + bgWidth,
+                transform.localPosition.y,
+                transform.localPosition.z
+            );
 
-            Vector3 bgClonePosition = new Vector3(transform.position.x + bgTotalWidth / 2, transform.position.y, transform.position.z);
-            //Vector3 bgClonePosition = transform.position + new Vector3(bgClonePositionX, 0, 0) Previous Script
-
-            bgCloneObj = Instantiate(gameObject, bgClonePosition, transform.rotation);
-
-            bgCloneObj.transform.SetParent(transform.parent);
-
+            bgCloneObj = Instantiate(gameObject, transform.parent);
+            bgCloneObj.transform.localPosition = bgClonePosition;
             bgCloneObj.transform.localScale = transform.localScale;
 
-            //Preventing cloning loop
+            // Prevent recursive cloning
             isObjCloned = true;
-            Destroy(bgCloneObj.GetComponent<ParallaxScript>());
+            Destroy(bgCloneObj.GetComponent<ParallaxUI>());
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         float multiplier = 1f;
-
         if (SpeedManager.Instance != null)
         {
             multiplier = SpeedManager.Instance.GetMultiplier();
         }
 
-        // Apply parallax movement
         float adjustedParallaxSpeed = parallaxSpeed * multiplier;
         Vector3 movement = new Vector3(Time.deltaTime * adjustedParallaxSpeed, 0, 0);
 
-        transform.position += movement;
-        bgCloneObj.transform.position += movement;
+        transform.localPosition += movement;
+        bgCloneObj.transform.localPosition += movement;
 
-        // Recycle when out of view
-        if (transform.position.x < -bgTotalWidth / 2)
+        // Recycle when out of view (UI-based)
+        if (transform.localPosition.x < -bgWidth)
             ResetPosition(gameObject);
 
-        if (bgCloneObj.transform.position.x < -bgTotalWidth / 2)
+        if (bgCloneObj.transform.localPosition.x < -bgWidth)
             ResetPosition(bgCloneObj);
     }
 
     void ResetPosition(GameObject obj)
     {
-        float resetPositionX = obj.transform.position.x + bgTotalWidth;
-        obj.transform.position = new Vector3(resetPositionX, transform.position.y, transform.position.z);
+        float resetPositionX = obj.transform.localPosition.x + bgTotalWidth;
+        obj.transform.localPosition = new Vector3(
+            resetPositionX,
+            transform.localPosition.y,
+            transform.localPosition.z
+        );
     }
-
 }
+
 

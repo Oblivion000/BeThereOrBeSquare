@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void Start()
     {
-
+        SoundManager.Instance.PlayMusic();
     }
     public void PlayGame() //method to start the first game scene
     {

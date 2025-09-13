@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
 {
     public static CurrencyManager Instance { get; private set; }
+
+    public event Action<int> OnCurrencyChanged;
 
     private int currency = 0;
     private const string CurrencyKey = "PlayerCurrency";
@@ -40,6 +43,7 @@ public class CurrencyManager : MonoBehaviour
     {
         currency += amount;
         SaveCurrency();
+        OnCurrencyChanged?.Invoke(currency); //notifies the UI
     }
 
     public bool SpendCurrency(int amount)
@@ -48,6 +52,7 @@ public class CurrencyManager : MonoBehaviour
         {
             currency -= amount;
             SaveCurrency();
+            OnCurrencyChanged?.Invoke(currency); //notifies the UI
             return true;
         }
         return false;

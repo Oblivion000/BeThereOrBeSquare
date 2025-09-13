@@ -7,6 +7,9 @@ public class SkinShopManager : MonoBehaviour
     public GameObject skinItemPrefab;
     public Transform shopItemContainer;
 
+    public GameObject floatingTextPrefab;
+    public Transform floatingTextSpawnPoint;
+
     void Start()
     {
         PopulateShop();
@@ -29,15 +32,27 @@ public class SkinShopManager : MonoBehaviour
             if (CurrencyManager.Instance.SpendCurrency(skin.cost))
             {
                 SkinManager.Instance.UnlockSkin(skin.skinName);
+                ShowFloatingText("Purchased " + skin.skinName + "!");
             }
             else
             {
-                Debug.Log("Not enough coins!");
+                Debug.Log("Not enough gems!");
+                ShowFloatingText("Not enough gems!");
                 return;
             }
         }
+        else
+        {
+            ShowFloatingText("Equipped " + skin.skinName + "!");
+        }
 
-        SkinManager.Instance.EquipSkin(skin);
+            SkinManager.Instance.EquipSkin(skin);
+    }
+
+    void ShowFloatingText(string message)
+    {
+        GameObject textObj = Instantiate(floatingTextPrefab, floatingTextSpawnPoint);
+        textObj.GetComponent<FloatingText>().Show(message);
     }
 }
 
