@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     //public GameObject hoverEffect;
 
     public GameOverScreen GameOverScreen;
-    public SoundManager SoundManager;
 
 
     //For Death Animation
@@ -27,11 +26,13 @@ public class PlayerController : MonoBehaviour
     public float cubeSize = 0.1f; // Size of each cube
     public float explosionForce = 200f; // Force applied to cubes on explosion
 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         defaultGravity = rb.gravityScale;
-        //hoverEffect.SetActive(false);
+
+        SoundManager.Instance.PlayMusic();
 
         ApplyEquippedSkin();
     }
@@ -47,34 +48,14 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
+
+            if (SoundManager.Instance != null && SoundManager.Instance.jumpSFX != null)
+            {
+                SoundManager.Instance.sfxSource.PlayOneShot(SoundManager.Instance.jumpSFX);
+                Debug.Log("Jump sound played.");
+            }
         }
-        //else if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && canHover)
-        //{
-        //    isHovering = true;
-        //    hoverTimer = hoverTime;
-        //    rb.gravityScale = hoverGravityScale;
-        //    hoverEffect.SetActive(true);
-        //}
-
-        //if (isHovering)
-        //{
-        //    hoverTimer -= Time.deltaTime;
-        //    if (hoverTimer <= 0)
-        //    {
-        //        isHovering = false;
-        //        rb.gravityScale = defaultGravity;
-        //        hoverEffect.SetActive(false);
-        //        canHover = false;
-        //    }
-        //}
-
-        //if (Input.GetKeyUp(KeyCode.Space) && isHovering)
-        //{
-        //    isHovering = false;
-        //    rb.gravityScale = defaultGravity;
-        //    hoverEffect.SetActive(false);
-        //    canHover = false;
-        //}
+        
     }
 
 
@@ -93,7 +74,7 @@ public class PlayerController : MonoBehaviour
             //To be refactored into taking damage and then the gameover screen after death
             //OnPlayerDeath();
             GameOverScreen.ShowGameOverPanel();
-            SoundManager.StopMusic();
+            SoundManager.Instance.StopMusic();
 
         }
     }
@@ -105,40 +86,27 @@ public class PlayerController : MonoBehaviour
        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -fastDropSpeed);
     }
 
-    //On Death animation Test
-    public void OnPlayerDeath()
-    {
-        Vector3 origin = transform.position;
-        Vector2 size = GetComponent<SpriteRenderer>().bounds.size;
-
-        //this is to spawn a grid of small cubes
-        for (int x = 0; x < gridSize; x++)
-        {
-            for (int y = 0; y < gridSize; y++)
-            {
-                for (int z = 0; z < gridSize; z++)
-                {
-                    Vector3 offset = origin + new Vector3(
-                        (x - gridSize / 2) * (size.x + cubeSpacing),
-                        (y - gridSize / 2) * (size.y + cubeSpacing)
-                        );
-
-                    GameObject cube = Instantiate(deathAnimationPrefab, origin + offset, Quaternion.identity);
-                    Rigidbody2D rbCube = cube.GetComponent<Rigidbody2D>();
-
-                    Vector2 explosionDirection = (cube.transform.position - origin).normalized;
-                    rbCube.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
-                }
-            }
-        }
-    }
 
     void ApplyEquippedSkin()
     {
-        var skin = SkinManager.Instance.equippedSkin;
-        if (skin != null)
+        if (SkinManager.Instance != null && SkinManager.Instance.equippedSkin != null)
         {
-            GetComponent<Animator>().runtimeAnimatorController = skin.animatorController;
+            var skin = SkinManager.Instance.equippedSkin;
+            var animator = GetComponent<Animator>();
+
+            if (animator != null && skin.animatorController != null)
+            {
+                animator.runtimeAnimatorController = skin.animatorController;
+                Debug.Log("Equipped skin applied: " + skin.skinName);
+            }
+            else
+            {
+                Debug.LogWarning("Animator missing or skin has no controller!");
+            }
+        }
+        else
+        {
+            Debug.Log("No skin equipped — using default visuals.");
         }
     }
 }
