@@ -10,6 +10,8 @@ public class SoundManager : Singleton<SoundManager>
     public AudioClip backgroundMusic;
     public AudioClip jumpSFX;
     public AudioClip gameOverSFX;
+    public AudioClip powerUPObtainedSFX;
+    public AudioClip deathSFX;
 
     protected override void Awake()
     {

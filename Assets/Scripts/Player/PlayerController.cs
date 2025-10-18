@@ -111,7 +111,9 @@ public class PlayerController : MonoBehaviour
         if (isDead)
                 return;
         isDead = true;
-        
+
+        SoundManager.Instance.sfxSource.PlayOneShot(SoundManager.Instance.deathSFX);
+
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false; //This stops physics updates
 
