@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
 
     private float score = 0f;
     private int highScore = 0;
+    public bool isCounting = true;
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class ScoreManager : MonoBehaviour
 
     private void Update()
     {
+        if (!isCounting) return; //Prevents the Score from going up if this is false.
+
         // Increase score over time, scaled by the current SpeedManager multiplier
         float multiplier = SpeedManager.Instance != null ? SpeedManager.Instance.GetMultiplier() : 1f;
         score += Time.deltaTime * 10f * multiplier;
@@ -40,6 +43,10 @@ public class ScoreManager : MonoBehaviour
     {
         return Mathf.FloorToInt(score);
     }
+
+    public void StopCounting() => isCounting = false;
+    public void ResumeCounting() => isCounting = true;
+
 }
 
 

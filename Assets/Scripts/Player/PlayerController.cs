@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,14 +18,7 @@ public class PlayerController : MonoBehaviour
     //public GameObject hoverEffect;
 
     public GameOverScreen GameOverScreen;
-
-
-    //For Death Animation
-    public GameObject deathAnimationPrefab;
-    public int gridSize = 3; // Number of cubes in each direction
-    public float cubeSpacing = 0.1f; // Spacing between cubes
-    public float cubeSize = 0.1f; // Size of each cube
-    public float explosionForce = 200f; // Force applied to cubes on explosion
+    public bool isDead = false;
 
 
     private void Start()
@@ -72,9 +66,11 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             //To be refactored into taking damage and then the gameover screen after death
-            //OnPlayerDeath();
-            GameOverScreen.ShowGameOverPanel();
-            SoundManager.Instance.StopMusic();
+
+            //GameOverScreen.ShowGameOverPanel();
+            //SoundManager.Instance.StopMusic();
+
+            Die();
 
         }
     }
@@ -108,6 +104,51 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("No skin equipped — using default visuals.");
         }
+    }
+
+    public void Die() //Function that will handle disabling player interaction plus call for Death animation
+    {
+        if (isDead)
+                return;
+        isDead = true;
+        
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false; //This stops physics updates
+
+        // Play a death sound
+        //if (SoundManager.Instance != null && SoundManager.Instance.deathSFX != null)
+        //{
+        //    SoundManager.Instance.sfxSource.PlayOneShot(SoundManager.Instance.deathSFX);
+        //}
+
+        // Spawn particles
+        //if (deathEffect != null)
+        //{
+        //    Instantiate(deathEffect, transform.position, Quaternion.identity);
+        //}
+
+        // Hide sprite or delay before hiding
+        StartCoroutine(HandleDeathSequence());
+
+    }
+
+    private IEnumerator HandleDeathSequence()
+    {
+        // Stop score counting
+        var scoreManager = FindFirstObjectByType<ScoreManager>();
+        if (scoreManager != null)
+            scoreManager.StopCounting();
+
+        //animator.SetTrigger("Die"); For use after implementation of Death animation
+
+        yield return new WaitForSeconds(2); //An optional delay allowing for animations to play
+
+        GetComponent<SpriteRenderer>().enabled = false; //Used to disable the Sprite visual of the player
+
+        GameOverScreen.ShowGameOverPanel(); //Call for the ShowGameOverPanel function.
+
+        SoundManager.Instance.StopMusic(); //Calling the StopMusic Function from the SoundManager.
+
     }
 }
 
